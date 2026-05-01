@@ -1,19 +1,21 @@
-import { auth } from '@/lib/auth'
-import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { getServerSession } from 'next-auth';
+import LogoutBtn from '@/components/LogoutBtn';
 
 const Dashboard = async() => {
 
-    const session= await auth.api.getSession({
-        headers: await headers()
-    })
+    const session= await getServerSession()
+
 
     if(!session){
-        redirect('/signin')
+        redirect('/login')
     }
   return (
-    <div>Dashboard</div>
+    <div>
+      Dashboard
+      <LogoutBtn/>
+    </div>
   )
 }
 

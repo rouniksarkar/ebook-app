@@ -28,14 +28,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <nav className='flex items-center gap-2'>
-            <Link href="/">Home</Link>
-            <Link href="/dashboard">Dashbaord</Link>
-            <Link href="/signin">Signin</Link>
-            <Link href="/signup">Signup</Link>
-            <Link href={'/logout'}>logout</Link>
-        </nav>
-        {children}
+          {children}
         </body>
     </html>
   );

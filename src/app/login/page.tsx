@@ -1,35 +1,21 @@
 'use client'
 import React,{useState} from 'react'
-import { authClient } from '@/lib/auth-client';
-import { redirect } from 'next/navigation';
-const signin = () => {
+import { redirect,useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+const login = () => {
     
+    const router= useRouter()
     const[email,setEmail]=useState("");
     const[password,setPassword]=useState("");
 
     const handleSubmit=async(e:any)=>{
         e.preventDefault();
-        const { data, error } = await authClient.signIn.email({
-        email: email, // required
-        password: password, // required
-        rememberMe: true,
-        callbackURL: "/dashboard",
-    },
-    {
-        onRequest:(ctx)=>{
-            console.log("Loading...");              
-        },
-        onSuccess:(ctx)=>{
-            redirect("/dashboard")
-        },
-        onError:(ctx)=>{
-            console.log("error",ctx);
-            
-        }
-    }
-    );
-        setEmail("");
-        setPassword("");
+        await signIn("credentials",{
+            email,
+            password,
+            callbackUrl: "/dashboard"
+        })
+
     }
 
   return (
@@ -52,4 +38,4 @@ const signin = () => {
   )
 }
 
-export default signin
+export default login

@@ -1,65 +1,77 @@
 'use client'
 import React, { useState } from 'react'
-import { authClient } from '@/lib/auth-client';
-import { redirect } from 'next/navigation';
-const signup = () => {
+import { redirect, useRouter } from 'next/navigation'; // Use useRouter for client-side navigation
+import axios from 'axios';
 
-    const[name,setName]=useState("");
-    const[email,setEmail]=useState("");
-    const[password,setPassword]=useState("");
+const Signup = () => {
+    const router = useRouter(); // Initialize router
 
-    const handleSubmit=async(e:any)=>{
+    const [formdata, setFormdata] = useState({
+        username: "",
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        setFormdata((prev) => ({
+            ...prev,          
+            [name]: value,  
+               
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const { data, error } = await authClient.signUp.email({
-            name: name, 
-            email: email, 
-            password: password, 
-            callbackURL: '/signin',
-        },
-        {
-            onRequest:(ctx)=>{
-                console.log("Loading...");              
-            },
-            onSuccess:(ctx)=>{
-                redirect("/signin")
-            },
-            onError:(ctx)=>{
-                console.log("error",ctx);
-            }
+        try {
+            const response = await axios.post("/api/auth/register", formdata);
+            console.log(response.data);
+            
+            router.push("/login")
+        } catch (error) {
+            console.error("Signup Error:", error);
         }
-    );
-    console.log(data);
-    
-    }
+    };
 
-  return (
-    <div className='flex items-center justify-center h-screen'>
-        <form className='flex flex-col gap-4 bg-zinc-800 p-4 mx-auto '
-            onSubmit={handleSubmit}>
-            <input className="border-blue-900" type="text" 
-            value={name} 
-            onChange={(e)=>setName(e.target.value)} 
-            placeholder="Name"/>
+    return (
+        <div className='flex items-center justify-center h-screen'>
+            <form className='flex flex-col gap-4 bg-zinc-800 p-4 mx-auto' onSubmit={handleSubmit}>
+                {/* Added 'name' attribute to each input */}
+                <input 
+                    name="username" 
+                    className="border-blue-900 text-white p-2" 
+                    type="text" 
+                    value={formdata.username} 
+                    onChange={handleChange} 
+                    placeholder="username"
+                />
 
-            <input 
-            className="border-blue-900"
-            type="text" 
-            value={email} 
-            onChange={(e)=>setEmail(e.target.value)} 
-            placeholder="email"/>
+                <input 
+                    name="email"
+                    className="border-blue-900 text-white p-2"
+                    type="email" 
+                    value={formdata.email} 
+                    onChange={handleChange} 
+                    placeholder="Email"
+                />
 
-            <input 
-            className="border-blue-900"
-            type="password" 
-            value={password} 
-            onChange={(e)=>setPassword(e.target.value)} 
-            placeholder="password"/>
+                <input 
+                    name="password"
+                    className="border-blue-900 text-white p-2"
+                    type="password" 
+                    value={formdata.password} 
+                    onChange={handleChange} 
+                    placeholder="Password"
+                />
 
-            <button type='submit'>Submit</button>
-        </form>
-    </div>
-  )
+                <button className='bg-blue-600 p-2 rounded' type='submit'>
+                    Submit
+                </button>
+            </form>
+        </div>
+    )
 }
 
-export default signup
+export default Signup;
