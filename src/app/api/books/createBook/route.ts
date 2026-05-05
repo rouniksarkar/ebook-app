@@ -25,11 +25,12 @@ export async function POST(request:NextRequest){
         return NextResponse.json({message:"Title already exist."},{status:400})
     }
 
-    const newBook = new Ebook({
+    const newBook = await Ebook.create({
         title,
         subtitle,
         description,
-        content,        
+        content, 
+        author:session.user.id,       
     })
 
     return NextResponse.json({message:"Book created successfully.",book:newBook},{status:201})

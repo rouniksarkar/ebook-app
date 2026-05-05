@@ -33,8 +33,7 @@ const bookeSchema=new mongoose.Schema<IBook>({
     },
     category:{
         type:String,
-        enum:["Fiction","Non-Fiction","Science","History","Biography","Fantasy","Mystery","Romance","Horror","Self-Help","Health","Travel","Children's"],
-        default:"Fiction"
+        default:""
     },
     author:{
         type:mongoose.Schema.Types.ObjectId,
@@ -56,10 +55,11 @@ const bookeSchema=new mongoose.Schema<IBook>({
     },
     coverImage:{
         type:String,
-        required:true
+        default:""
     },
     chapter:{
         type:[String],
+        default:[]
     },
 },{
     timestamps:true

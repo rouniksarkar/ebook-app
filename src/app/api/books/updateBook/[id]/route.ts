@@ -4,8 +4,8 @@ import EBook from "@/model/book.model";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOption";
 
-export async function PUT(request:NextRequest,{params}:{params:{id:string}}){
-    const {id} = params
+export async function PUT(request:NextRequest,{params}:{params:Promise<{id:string}>}){
+    const {id} = await params
 
     await connectDB()
 
