@@ -29,7 +29,18 @@ export async function PUT(request:NextRequest,{params}:{params:Promise<{id:strin
 
 
     const updateBook = await EBook.findByIdAndUpdate(id,
-        body
+        {
+            title:body.title ,
+            subtitle:body.subtitle || book.subtitle,
+            description:body.description || book.description,   
+            content:body.content || book.content,
+            category:body.category || book.category,
+            coverImage:body.coverImage || book.coverImage,
+            access:body.access || book.access,
+            isPublished:true,
+            status:"Published",
+            author:session.user.id,
+        }
     ,{new:true})
 
     return NextResponse.json({message:"Book updated successfully.",book:updateBook},{status:200})

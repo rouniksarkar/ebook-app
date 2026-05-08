@@ -30,7 +30,7 @@ export async function POST(request:NextRequest){
         subtitle,
         description,
         content, 
-        author:session.user.id,       
+        author:session.user.id,      
     })
 
     return NextResponse.json({message:"Book created successfully.",book:newBook},{status:201})

@@ -12,6 +12,7 @@ export interface IBook{
     aiGenerated:boolean,
     coverImage?:string,
     chapter:string[],
+    status:string,
 }
 
 const bookeSchema=new mongoose.Schema<IBook>({
@@ -21,7 +22,7 @@ const bookeSchema=new mongoose.Schema<IBook>({
     },
     subtitle:{
         type:String,
-        required:[true,"Subtitle must needed."],
+        default:""
     },
     description:{
         type:String,
@@ -46,8 +47,8 @@ const bookeSchema=new mongoose.Schema<IBook>({
     },
     access:{
         type:String,
-        enum:["public","private"],
-        default:"public"
+        enum:["Free","Paid"],
+        default:"Free"
     },
     aiGenerated:{
         type:Boolean,
@@ -61,6 +62,11 @@ const bookeSchema=new mongoose.Schema<IBook>({
         type:[String],
         default:[]
     },
+    status:{
+        type:String,
+        enum:["Draft","Published"],
+        default:"Draft"
+    }
 },{
     timestamps:true
 })

@@ -23,6 +23,7 @@ const myBooks = () => {
                     <p>{books.subtitle}</p>
                     <p>{books.description}</p>  
                     <p>{books.content}</p>
+                    <img src={books.coverImage} alt="" />
                 </li>
             ))}
         </ul>
