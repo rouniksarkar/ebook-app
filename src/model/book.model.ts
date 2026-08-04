@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
 export interface IBook{
-    title:string,
+    name:string,
     subtitle?:string,
     description:string,
-    content:string,
     category?:string,
     author:mongoose.Types.ObjectId,
     isPublished:boolean,
@@ -13,12 +12,16 @@ export interface IBook{
     coverImage?:string,
     chapter:string[],
     status:string,
+    views: number,
+    likesCount: number,
+    savesCount: number,
+    commentsCount: number,
 }
 
 const bookeSchema=new mongoose.Schema<IBook>({
-    title:{
+    name:{
         type:String,
-        required:[true,"Title must needed."],
+        required:[true,"Name must needed."],
     },
     subtitle:{
         type:String,
@@ -28,17 +31,13 @@ const bookeSchema=new mongoose.Schema<IBook>({
         type:String,
         required:[true,"Description must needed."],
     },
-    content:{
-        type:String,
-        required:[true,"Content must needed."],
-    },
     category:{
         type:String,
         default:""
     },
     author:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"users",
+        ref:"User",
         required:true,
     },
     isPublished:{
@@ -58,15 +57,29 @@ const bookeSchema=new mongoose.Schema<IBook>({
         type:String,
         default:""
     },
-    chapter:{
-        type:[String],
-        default:[]
-    },
     status:{
         type:String,
         enum:["Draft","Published"],
         default:"Draft"
-    }
+    },
+    views: {
+        type: Number,
+        default: 0,
+        index: true, // useful for "trending" / sort by views
+    },
+    likesCount: {
+        type: Number,
+        default: 0,
+        index: true,
+    },
+    savesCount: {
+        type: Number,
+        default: 0,
+    },
+    commentsCount: {
+        type: Number,
+        default: 0,
+    },
 },{
     timestamps:true
 })

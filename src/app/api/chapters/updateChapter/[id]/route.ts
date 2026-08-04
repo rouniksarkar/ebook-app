@@ -22,9 +22,9 @@ export async function PUT(request:NextRequest, {params}:{params:Promise<{id:stri
         return NextResponse.json({message:"Chapter not found."},{status:404})
     }
     
-    if(chapter.auther.toString()!=session.user.id){
-        return NextResponse.json({message:"You are not authorized to update this book."},{status:403})
-    }
+    // if(chapter.auther.toString()!=session.user.id){
+    //     return NextResponse.json({message:"You are not authorized to update this book."},{status:403})
+    // }
 
     const body = await request.json()
 

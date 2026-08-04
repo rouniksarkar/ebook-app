@@ -1,5 +1,4 @@
-"use client" // This component must be a client component
-
+"use client"
 import {
     ImageKitAbortError,
     ImageKitInvalidRequestError,
@@ -8,6 +7,7 @@ import {
     upload,
 } from "@imagekit/next";
 import { useRef, useState } from "react";
+import { UploadCloud } from "lucide-react";
 
 interface FileUploadProps{
     onSucess: (res:any) => void
@@ -80,15 +80,30 @@ const FileUpload = ({
     }
 
     return (
-        <>
-            <input type="file" 
-            accept={fileType === "image" ? "image/*" : "image/*"}
-            onChange={handleFileChange}
-            />
-            {uploading && <p>Uploading...</p>}
-            
-        </>
+        <div className="w-full">
+            <label className="flex flex-col items-center justify-center w-full px-4 py-6 border border-dashed border-card-border rounded-xl cursor-pointer hover:border-indigo-500/50 hover:bg-slate-50/50 dark:hover:bg-slate-800/25 transition-all duration-200">
+                <div className="flex flex-col items-center gap-1.5 text-center">
+                    <UploadCloud className="w-8 h-8 text-indigo-500 mb-1" />
+                    <p className="text-sm font-bold text-foreground">
+                        {uploading ? "Uploading..." : "Click to upload image"}
+                    </p>
+                    <p className="text-xs text-muted">
+                        PNG, JPG or WEBP up to 5MB
+                    </p>
+                </div>
+                <input 
+                    type="file" 
+                    accept={fileType === "image" ? "image/*" : "image/*"}
+                    onChange={handleFileChange}
+                    className="hidden"
+                    disabled={uploading}
+                />
+            </label>
+            {error && (
+                <p className="text-xs font-bold text-rose-500 mt-2 text-center">{error}</p>
+            )}
+        </div>
     );
 };
 
-export default FileUpload;
+export default FileUpload;

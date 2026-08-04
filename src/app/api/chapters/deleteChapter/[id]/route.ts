@@ -4,7 +4,7 @@ import { Chapter } from "@/model/chapter.model";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request:NextRequest, {params}:{params:Promise<{id:string}>}){
+export async function DELETE(request:NextRequest, {params}:{params:Promise<{id:string}>}){
 
     const {id} = await params;
 

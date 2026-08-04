@@ -4,7 +4,11 @@ import mongoose from "mongoose";
 interface IUser{
     username:string,
     email:string,
-    password:string
+    password:string,
+    fullname:string,
+    bio:string,
+    avatar:string,
+    join:Date
 }
 
 const userSchema= new mongoose.Schema<IUser>({
@@ -21,6 +25,22 @@ const userSchema= new mongoose.Schema<IUser>({
     password:{
         type:String,
         required:[true,"password required"],
+    },
+    fullname:{
+        type:String,
+        default:""
+    },
+    bio:{
+        type:String,
+        default:""
+    },
+    avatar:{
+        type:String,
+        default:""
+    },
+    join:{
+        type:Date,
+        default:Date.now
     }
 },{
     timestamps:true,

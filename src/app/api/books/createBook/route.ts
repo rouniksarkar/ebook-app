@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/authOption";
 import { getServerSession } from "next-auth";
 
 export async function POST(request:NextRequest){
-    const {title,subtitle,description,content} =await request.json();
+    const {name,subtitle,description,category} =await request.json();
 
     await connectDB();
 
@@ -15,21 +15,21 @@ export async function POST(request:NextRequest){
         return NextResponse.json({message:"Unauthorized."},{status:401})
     }
 
-    if(!title || !description || !content){
-        return NextResponse.json({message:"Title, decription and content are required."},{status:400})
+    if(!name || !description || !category){
+        return NextResponse.json({message:"name, decription and content are required."},{status:400})
     }
 
-    const existTitle = await Ebook.findOne({title})
+    const existName = await Ebook.findOne({name})
 
-    if(existTitle){
-        return NextResponse.json({message:"Title already exist."},{status:400})
+    if(existName){
+        return NextResponse.json({message:"This book name already exist."},{status:400})
     }
 
     const newBook = await Ebook.create({
-        title,
+        name,
         subtitle,
-        description,
-        content, 
+        description, 
+        category,
         author:session.user.id,      
     })
 

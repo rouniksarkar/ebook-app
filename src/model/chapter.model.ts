@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export interface IChapter{
     title:string,
     content:string,
-    auther:mongoose.Types.ObjectId,
+    author:mongoose.Types.ObjectId,
     bookId:mongoose.Types.ObjectId,
     order:number,
 }
@@ -17,7 +17,7 @@ const chapterSchema = new mongoose.Schema<IChapter>({
         type:String,
         required:true
     },
-    auther:{
+    author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true

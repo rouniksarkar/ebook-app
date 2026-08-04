@@ -9,11 +9,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     await connectDB()
 
-    const session = await getServerSession(authOptions)
 
-    if (!session) {
-        return NextResponse.json({ message: "Unauthorized." }, { status: 401 })
-    }
 
     const book = await Ebook.findById(id);
 

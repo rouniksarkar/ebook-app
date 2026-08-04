@@ -1,36 +1,244 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 AI eBook Platform
 
-## Getting Started
+A modern full-stack eBook publishing platform built with **Next.js**, **MongoDB**, and **TypeScript**, allowing users to create, publish, and explore digital books. The platform includes AI-powered writing assistance, a rich text editor, authentication, image uploads, and social features for an engaging reading experience.
 
-First, run the development server:
+---
+
+## 🚀 Live Demo
+
+🔗 https://your-vercel-link.vercel.app
+
+> Replace the above URL with your deployed Vercel link.
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication
+- User Registration & Login
+- Secure Authentication using NextAuth
+- Protected Routes
+- User Sessions
+
+### 📖 Book Management
+- Create New Books
+- Edit Existing Books
+- Draft & Publish Workflow
+- Public / Private Books
+- Upload Cover Images
+- Chapter Management
+
+### ✍️ Rich Text Editor
+- Tiptap Editor
+- Modern Writing Experience
+- AI Assisted Content Generation
+
+### ❤️ Community Features
+- Like Books
+- Comment System
+- Bookmark Books
+- View Count
+
+### 🔍 Search & Filters
+- Search by Book Title
+- Search by Author
+- Filter by Category
+- Sort by:
+  - Latest
+  - Most Viewed
+  - Most Liked
+
+### 👤 User Profile
+- View User Information
+- Display Created Books
+- Manage Personal Content
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Axios
+
+## Backend
+- Next.js API Routes
+- NextAuth
+- MongoDB
+- Mongoose
+
+## AI Integration
+- Groq API
+
+## Image Storage
+- ImageKit
+
+---
+
+# 📂 Folder Structure
+
+```
+app/
+├── api/
+├── dashboard/
+├── login/
+├── register/
+├── profile/
+├── books/
+└── ...
+
+components/
+db/
+lib/
+model/
+public/
+```
+
+---
+
+# ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/your-repository.git
+```
+
+### Go to Project Folder
+
+```bash
+cd your-repository
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Create Environment File
+
+Create a `.env` file in the root directory and add the following variables:
+
+```env
+MONGODB_URI=
+
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+
+IMAGEKIT_PUBLIC_KEY=
+IMAGEKIT_PRIVATE_KEY=
+IMAGEKIT_URL_ENDPOINT=
+
+GROQ_API_KEY=
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# 📦 Build for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 📸 Screenshots
 
-## Deploy on Vercel
+Add screenshots here after deployment.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Home Page
+- Login Page
+- Dashboard
+- Create Book
+- Book Details
+- User Profile
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Example:
+
+```
+screenshots/
+    home.png
+    dashboard.png
+    create-book.png
+```
+
+---
+
+# 🚀 Deployment
+
+This project is deployed on **Vercel**.
+
+To deploy your own copy:
+
+1. Fork or Clone the repository.
+2. Import the project into Vercel.
+3. Add the required Environment Variables.
+4. Deploy.
+
+---
+
+# 🔒 Environment Variables
+
+The following variables are required:
+
+| Variable | Description |
+|----------|-------------|
+| MONGODB_URI | MongoDB Connection String |
+| NEXTAUTH_SECRET | NextAuth Secret |
+| NEXTAUTH_URL | Base URL |
+| IMAGEKIT_PUBLIC_KEY | ImageKit Public Key |
+| IMAGEKIT_PRIVATE_KEY | ImageKit Private Key |
+| IMAGEKIT_URL_ENDPOINT | ImageKit URL Endpoint |
+| GROQ_API_KEY | Groq API Key |
+
+> **Important:** Never commit your `.env` file to GitHub.
+
+---
+
+# 📌 Future Improvements
+
+- Reading Progress
+- Follow Authors
+- Notifications
+- Book Ratings
+- PDF Export
+- Admin Dashboard
+- Dark Mode
+- Reading History
+
+---
+
+# 👨‍💻 Author
+
+**Rounik Sarkar**
+
+B.Tech Computer Science Engineering
+
+Full Stack Web Developer
+
+GitHub: https://github.com/your-github
+
+LinkedIn: https://linkedin.com/in/your-profile
+
+---
+
+## ⭐ Support
+
+If you found this project useful, please consider giving it a ⭐ on GitHub.

@@ -15,7 +15,11 @@ export default withAuth(
                 ){
                     return true;
                 }
-                if(pathname==='/' || pathname.startsWith("/api/videos")){
+                if(
+                    pathname==='/' || 
+                    pathname.startsWith("/api/videos") ||
+                    pathname.startsWith("/dashboard/chaptersUi/all-chapter")
+                ){
                     return true;
                 }
                 return !! token

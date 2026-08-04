@@ -28,15 +28,18 @@ export async function PUT(request:NextRequest,{params}:{params:Promise<{id:strin
     const body = await request.json();
 
 
+    const normalizedAccess = body.access 
+        ? (body.access.charAt(0).toUpperCase() + body.access.slice(1).toLowerCase()) 
+        : book.access;
+
     const updateBook = await EBook.findByIdAndUpdate(id,
         {
-            title:body.title ,
+            name:body.name ,
             subtitle:body.subtitle || book.subtitle,
             description:body.description || book.description,   
-            content:body.content || book.content,
             category:body.category || book.category,
             coverImage:body.coverImage || book.coverImage,
-            access:body.access || book.access,
+            access:normalizedAccess,
             isPublished:true,
             status:"Published",
             author:session.user.id,

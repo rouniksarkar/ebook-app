@@ -2,11 +2,15 @@ import { connectDB } from "@/db/configDb";
 import { NextRequest, NextResponse } from "next/server";
 import {Chapter} from "@/model/chapter.model";
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../../lib/authOption';
+import { authOptions } from '../../../../../lib/authOption';
 
-export async function POST(request: NextRequest) {
 
-    const {title, content, order,bookId} = await request.json();
+export async function POST(request: NextRequest,{params}:{params:Promise<{bookId:string}>}) {
+
+    const {bookId} = await params;
+
+    const {title, content, order} = await request.json();
+
 
     const session = await getServerSession(authOptions);
 
@@ -26,7 +30,7 @@ export async function POST(request: NextRequest) {
             content,
             order,
             bookId,
-            auther:session.user.id,
+            author:session.user.id,
         })
 
         return NextResponse.json({message:"Chapter created sucessfully!",newChapter},{status:201})
