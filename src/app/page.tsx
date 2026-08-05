@@ -1,124 +1,3 @@
-// 'use client'
-// import axios from "axios";
-// import Link from "next/link";
-// import { useEffect, useState, useMemo } from "react";
-// import Pagination from "@/components/Pagination";
-
-// export default function Home() {
-
-//   const [books, setBooks] = useState([])
-//   const [query, setQuery] = useState("")
-//   const [page, setPage] = useState(1);
-//   const [totalPages, setTotalPages] = useState(1);
-
-//   useEffect(() => {
-//     const fetchBook = async () => {
-//       const res = await axios.get(`/api/books/showBook?page=${page}&limit=6`)
-//       console.log(res.data);
-//       setBooks(res.data.books)
-//       setTotalPages(res.data.totalPages)
-//     }
-//     fetchBook()
-//   }, [page])
-
-//   const filteredBooks = useMemo(() => {
-//     if (!query.trim()) return books;
-
-//     const q = query.toLowerCase().trim();
-
-//     return books.filter((book: any) => {
-//       const name = book.name?.toLowerCase() || "";
-//       const subtitle = book.subtitle?.toLowerCase() || "";
-//       const description = book.description?.toLowerCase() || "";
-//       const category = book.category?.toLowerCase() || "";
-//       const author = book.author?.username?.toLowerCase() || "";
-
-//       return (
-//         name.includes(q) ||
-//         subtitle.includes(q) ||
-//         description.includes(q) ||
-//         category.includes(q) ||
-//         author.includes(q)
-//       );
-//     });
-//   }, [query, books]);
-
-//   return (
-//     <>
-//       <p>Home Page</p>
-//       <div>
-//         <a href="/dashboard">Dashboard</a>
-//       </div>
-
-//       <div className="max-w-7xl mx-auto p-6">
-//         {/* Search Bar */}
-//         <div className="mb-6">
-//           <input
-//             type="text"
-//             value={query}
-//             onChange={(e) => setQuery(e.target.value)}
-//             placeholder="Search by name, author, category, or description..."
-//             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           />
-//         </div>
-
-//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {filteredBooks?.map((book: any) => (
-//             <div
-//               key={book._id}
-//               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
-//             >
-//               {/* Cover Image */}
-//               <img
-//                 src={book.coverImage}
-//                 alt={book.name}
-//                 className="w-full h-60 object-cover"
-//               />
-
-//               {/* Book Details */}
-//               <div className="p-5">
-//                 <h2 className="text-2xl font-bold text-gray-800">
-//                   {book.name}
-//                 </h2>
-
-//                 <p className="text-gray-500 italic mt-1">
-//                   {book.subtitle}
-//                 </p>
-
-//                 <p className="text-gray-700 mt-3 line-clamp-3">
-//                   {book.description}
-//                 </p>
-
-//                 <span className="inline-block mt-4 bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full">
-//                   {book.author.username}
-//                 </span>
-
-//                 <div className="mt-5 flex justify-between">
-//                   <Link href={`/dashboard/chaptersUi/all-chapter/${book._id}`}>
-//                     <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-//                       View
-//                     </button>
-//                   </Link>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-
-//           {filteredBooks.length === 0 && (
-//             <p className="text-gray-500 col-span-full text-center py-10">
-//               No books found.
-//             </p>
-//           )}
-//         </div>
-//         <Pagination
-//           currentPage={page}
-//           totalPages={totalPages}
-//           onPageChange={setPage}
-//         />
-//       </div>
-//     </>
-//   );
-// }
 'use client'
 import axios from "axios";
 import Link from "next/link";
@@ -166,8 +45,8 @@ export default function Home() {
       const res = await axios.get(`/api/books/showBook`, {
         params: { page, limit: 6, sortBy, category },
       });
-      setBooks(res.data.books)
-      setTotalPages(res.data.totalPages)
+      setBooks(Array.isArray(res.data.books) ? res.data.books : [])
+      setTotalPages(res.data.totalPages ?? 1);
     }
     fetchBook()
   }, [page, sortBy, category])
@@ -184,11 +63,11 @@ export default function Home() {
   };
 
   const filteredBooks = useMemo(() => {
-    if (!query.trim()) return books;
+    if (!query.trim()) return books ?? [];
 
     const q = query.toLowerCase().trim();
 
-    return books.filter((book: any) => {
+    return (books ?? []).filter((book: any) => {
       const name = book.name?.toLowerCase() || "";
       const subtitle = book.subtitle?.toLowerCase() || "";
       const description = book.description?.toLowerCase() || "";
@@ -370,7 +249,7 @@ export default function Home() {
             </div>
           ))}
 
-          {filteredBooks.length === 0 && (
+          {filteredBooks?.length === 0 && (
             <div className="col-span-full flex flex-col items-center justify-center py-16 px-4 bg-white dark:bg-slate-900/60 rounded-3xl border border-card-border text-center shadow-sm">
               <FolderOpen className="w-12 h-12 text-slate-400 mb-3" />
               <h3 className="text-lg font-bold text-foreground">No Books Found</h3>
