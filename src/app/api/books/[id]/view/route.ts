@@ -15,6 +15,14 @@ export async function POST(
         await connectDB();
         const { id: bookId } = await params;
 
+        const bookToView = await Ebook.findOne({
+            _id: bookId,
+            $or: [{ status: { $in: ["Published", "published"] } }, { isPublished: true }],
+        }).select("_id");
+        if (!bookToView) {
+            return NextResponse.json({ message: "Book not found" }, { status: 404 });
+        }
+
         const session = await getServerSession(authOptions);
         const cookieStore = await cookies();
 

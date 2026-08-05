@@ -18,7 +18,7 @@ const SORT_OPTIONS: { label: string; value: SortBy }[] = [
 export default function Home() {
   const { data: session } = useSession();
 
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState<any[]>([]);
   const [query, setQuery] = useState("")
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -249,7 +249,7 @@ export default function Home() {
             </div>
           ))}
 
-          {filteredBooks?.length === 0 && (
+          {Array.isArray(filteredBooks) && filteredBooks.length === 0 && (
             <div className="col-span-full flex flex-col items-center justify-center py-16 px-4 bg-white dark:bg-slate-900/60 rounded-3xl border border-card-border text-center shadow-sm">
               <FolderOpen className="w-12 h-12 text-slate-400 mb-3" />
               <h3 className="text-lg font-bold text-foreground">No Books Found</h3>

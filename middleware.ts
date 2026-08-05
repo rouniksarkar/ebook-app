@@ -11,7 +11,8 @@ export default withAuth(
                 if(
                     pathname.startsWith("/api/auth") ||
                     pathname === "/login" ||
-                    pathname === '/register'
+                    pathname === "/register" ||
+                    pathname === "/signup"
                 ){
                     return true;
                 }
@@ -29,5 +30,5 @@ export default withAuth(
 )
 
 export const config = {
-    matcher :[]
+    matcher :["/dashboard/:path*"]
 }

@@ -45,6 +45,14 @@ export async function POST(
         const {id:bookId} = await params;
         const userId = session.user.id;
 
+        const bookToSave = await Ebook.findOne({
+            _id: bookId,
+            $or: [{ status: { $in: ["Published", "published"] } }, { isPublished: true }],
+        });
+        if (!bookToSave) {
+            return NextResponse.json({ message: "Book not found" }, { status: 404 });
+        }
+
         const existing = await Save.findOne({ book: bookId, user: userId });
 
         let saved: boolean;

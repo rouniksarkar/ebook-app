@@ -15,8 +15,9 @@ export async function GET(
         await connectDB();
         const session = await getServerSession(authOptions);
 
-        const book = await Ebook.findById(id).select("likesCount");
-        if (!book) {
+        const book = await Ebook.findById(id).select("likesCount status isPublished");
+        const isPublished = book?.isPublished || ["Published", "published"].includes(book?.status ?? "");
+        if (!book || !isPublished) {
             return NextResponse.json({ message: "Book not found" }, { status: 404 });
         }
 
@@ -49,6 +50,14 @@ export async function POST(
         await connectDB();
         const {id : bookId} = await params;
         const userId = session.user.id;
+
+        const bookToLike = await Ebook.findOne({
+            _id: bookId,
+            $or: [{ status: { $in: ["Published", "published"] } }, { isPublished: true }],
+        });
+        if (!bookToLike) {
+            return NextResponse.json({ message: "Book not found" }, { status: 404 });
+        }
 
         const existing = await Like.findOne({ book: bookId, user: userId });
 

@@ -100,6 +100,7 @@ const Chapters = () => {
 
     const [book, setBook] = useState<any>(null);
     const [chapter,setChapter] = useState([])
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(()=>{
         const fetchData = async ()=>{
@@ -110,6 +111,27 @@ const Chapters = () => {
         }
         fetchData()
     },[id])
+
+    const handleDeleteBook = async () => {
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this book and all its chapters? This action cannot be undone."
+        );
+        if (!confirmDelete) return;
+
+        setDeleting(true);
+        try {
+            const res = await axios.delete(`/api/books/deleteBook/${id}`);
+            if (res.status === 200) {
+                alert("Book deleted successfully.");
+                router.push("/dashboard/my-book");
+            }
+        } catch (err: any) {
+            console.error(err);
+            alert(err.response?.data?.message || "Failed to delete the book.");
+        } finally {
+            setDeleting(false);
+        }
+    };
 
     const isOwner = session?.user?.id === book?.author?._id;
 
@@ -171,6 +193,14 @@ const Chapters = () => {
                                 <Plus className="w-3.5 h-3.5" />
                                 Add Chapter
                             </Link>
+                            <button 
+                                onClick={handleDeleteBook}
+                                disabled={deleting}
+                                className="inline-flex items-center gap-1.5 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold transition-all duration-200 disabled:opacity-50 cursor-pointer"
+                            >
+                                <Trash2 className="w-3.5 h-3.5" />
+                                {deleting ? "Deleting..." : "Delete Book"}
+                            </button>
                         </div>
                     )}
                 </div>
@@ -260,6 +290,14 @@ const Chapters = () => {
                     >
                         Publish
                     </Link>
+                    <button 
+                        onClick={handleDeleteBook}
+                        disabled={deleting}
+                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold transition-all duration-200 shadow-md shadow-rose-500/10 hover:shadow-lg disabled:opacity-50 cursor-pointer"
+                    >
+                        <Trash2 className="w-4 h-4" />
+                        {deleting ? "Deleting Book..." : "Delete Book"}
+                    </button>
                 </div>
             )}
 

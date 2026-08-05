@@ -17,7 +17,7 @@ const myBooks = () => {
     }, []);
 
     return (
-        <div className="flex-1 bg-gradient-to-br from-slate-50 to-indigo-50/30 dark:from-slate-950 dark:to-slate-900/60 py-12 px-6">
+        <div className="flex-1 bg-linear-to-br from-slate-50 to-indigo-50/30 dark:from-slate-950 dark:to-slate-900/60 py-12 px-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10 border-b border-card-border pb-6">
@@ -48,7 +48,7 @@ const myBooks = () => {
                             className="group bg-white dark:bg-slate-900/60 rounded-3xl border border-card-border overflow-hidden hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
                         >
                             {/* Cover Container */}
-                            <div className="aspect-[4/3] w-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 border-b border-card-border">
+                            <div className="aspect-4/3 w-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 border-b border-card-border">
                                 {book.coverImage ? (
                                     <img
                                         src={book.coverImage}

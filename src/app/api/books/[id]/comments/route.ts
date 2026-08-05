@@ -14,6 +14,13 @@ export async function GET(
     try {
         const {id} = await params;
         await connectDB();
+        const book = await Ebook.findOne({
+            _id: id,
+            $or: [{ status: { $in: ["Published", "published"] } }, { isPublished: true }],
+        }).select("_id");
+        if (!book) {
+            return NextResponse.json({ message: "Book not found" }, { status: 404 });
+        }
         const { searchParams } = new URL(req.url);
         const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
         const limit = Math.min(50, parseInt(searchParams.get("limit") || "10"));
@@ -56,6 +63,13 @@ export async function POST(
         }
 
         await connectDB();
+        const book = await Ebook.findOne({
+            _id: id,
+            $or: [{ status: { $in: ["Published", "published"] } }, { isPublished: true }],
+        }).select("_id");
+        if (!book) {
+            return NextResponse.json({ message: "Book not found" }, { status: 404 });
+        }
         const body = await req.json();
         const content = typeof body.content === "string" ? body.content.trim() : "";
         const parentComment = body.parentComment || null;

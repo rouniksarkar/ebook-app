@@ -11,9 +11,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
 
 
-    const book = await Ebook.findById(id);
+    const [book, session] = await Promise.all([
+        Ebook.findById(id),
+        getServerSession(authOptions),
+    ]);
 
-    if (!book) {
+    const isOwner = session?.user?.id === book?.author?.toString();
+    const isPublished = book?.isPublished || ["Published", "published"].includes(book?.status ?? "");
+    if (!book || (!isPublished && !isOwner)) {
         return NextResponse.json({ message: "Book not found." }, { status: 404 })
     }   
     return NextResponse.json({ message: "Book fetched successfully.", book }, { status: 200 })

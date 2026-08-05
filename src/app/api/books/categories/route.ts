@@ -2,14 +2,16 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/db/configDb";
 import Ebook from "@/model/book.model";
 
-// GET /api/books/categories -> distinct, non-empty categories among published free books
+// GET /api/books/categories -> distinct, non-empty categories among published books
 export async function GET() {
     try {
         await connectDB();
 
         const categories = await Ebook.distinct("category", {
-            access: { $in: ["Free", "free"] },
-            status: "Published",
+            $or: [
+                { status: { $in: ["Published", "published"] } },
+                { isPublished: true },
+            ],
             category: { $nin: [null, ""] },
         });
 

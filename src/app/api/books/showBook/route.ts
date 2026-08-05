@@ -17,8 +17,10 @@ export async function GET(request: NextRequest) {
         const skip = (page - 1) * limit;
 
         const filter: Record<string, any> = {
-            access: { $in: ["Free", "free"] },
-            status: "Published"
+            $or: [
+                { status: { $in: ["Published", "published"] } },
+                { isPublished: true },
+            ],
         };
 
         if (category && category !== "All") {

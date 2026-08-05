@@ -13,16 +13,21 @@ export async function GET(request:NextRequest, {params}:{params:Promise<{id:stri
 
     await connectDB();
 
-    const book = await Ebook.findById(id).populate("author","username")
+    const [book, session] = await Promise.all([
+        Ebook.findById(id).populate("author", "username"),
+        getServerSession(authOptions),
+    ]);
+
+    const isOwner = session?.user?.id === book?.author?._id?.toString();
+    const isPublished = book?.isPublished || ["Published", "published"].includes(book?.status ?? "");
+    if (!book || (!isPublished && !isOwner)) {
+        return NextResponse.json({message:"Book not found."},{status:404})
+    }
 
     const chapter = await Chapter.find({
         bookId:id
     }).populate("author")
     .sort({ order: 1 });
-
-    if(chapter.length===0){
-        return NextResponse.json({message:"Chapter not found."},{status:404})
-    }
 
     return NextResponse.json({message:"Book and Chapter fetched successfully.",book,chapter},{status:200})
 }
