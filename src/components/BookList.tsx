@@ -81,7 +81,7 @@ const BookList = () => {
                 ))}
             </div>
 
-            {books.length === 0 && (
+            {books?.length === 0 && (
                 <p className="text-sm font-semibold text-muted py-6">You haven't written any books yet.</p>
             )}
         </div>

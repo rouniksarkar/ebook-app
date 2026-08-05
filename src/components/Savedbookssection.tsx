@@ -36,7 +36,7 @@ export default function SavedBooksSection() {
         loadSavedBooks(1);
     }, []);
 
-    if (loading && books.length === 0) {
+    if (loading && books?.length === 0) {
         return (
             <div className="py-6 flex items-center justify-center">
                 <span className="w-6 h-6 rounded-full border-2 border-indigo-500/20 border-t-indigo-600 animate-spin"></span>
@@ -45,7 +45,7 @@ export default function SavedBooksSection() {
         );
     }
 
-    if (!loading && books.length === 0) {
+    if (!loading && books?.length === 0) {
         return (
             <div className="bg-white dark:bg-slate-900/40 rounded-2xl border border-card-border p-6 text-center">
                 <p className="text-muted text-sm font-semibold">

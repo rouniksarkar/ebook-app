@@ -65,7 +65,7 @@ const allChapter = () => {
                 ))}
             </div>
 
-            {chapter.length === 0 && (
+            {chapter?.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-16 px-4 bg-white dark:bg-slate-900/60 rounded-3xl border border-card-border text-center shadow-sm">
                     <Layers className="w-12 h-12 text-slate-400 mb-3" />
                     <h3 className="text-lg font-bold text-foreground">No Chapters Found</h3>

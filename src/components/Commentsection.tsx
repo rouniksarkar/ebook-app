@@ -160,7 +160,7 @@ export default function CommentSection({ bookId }: { bookId: string }) {
                     </div>
                 ))}
 
-                {!loading && comments.length === 0 && (
+                {!loading && comments?.length === 0 && (
                     <div className="text-center py-8">
                         <p className="text-sm text-muted font-medium">No comments yet. Be the first to share your thoughts!</p>
                     </div>
