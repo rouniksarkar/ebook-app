@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
         ]);
 
         // A saved book may have been deleted/unpublished since — filter those out
-        const books = saves.map((s: any) => s.book).filter(Boolean);
+        const books = saves?.map((s: any) => s.book).filter(Boolean);
 
         return NextResponse.json({
             books,

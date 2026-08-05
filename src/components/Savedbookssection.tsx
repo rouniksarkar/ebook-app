@@ -60,7 +60,7 @@ export default function SavedBooksSection() {
             <h2 className="text-xl font-bold text-foreground mb-4">Saved Books</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {books.map((book) => (
+                {books?.map((book) => (
                     <div
                         key={book._id}
                         className="group bg-white dark:bg-slate-900/60 rounded-3xl border border-card-border overflow-hidden hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-0.5 transition-all duration-300 flex flex-col h-full"
@@ -144,4 +144,4 @@ export default function SavedBooksSection() {
             )}
         </div>
     );
-}
+}

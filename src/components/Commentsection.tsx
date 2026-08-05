@@ -114,7 +114,7 @@ export default function CommentSection({ bookId }: { bookId: string }) {
             </form>
 
             <div className="space-y-6">
-                {comments.map((comment) => (
+                {comments?.map((comment) => (
                     <div key={comment._id} className="flex gap-4 border-b border-card-border/50 pb-6 last:border-0 last:pb-0">
                         {/* User Avatar */}
                         <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 border border-indigo-500/10 flex-shrink-0 overflow-hidden flex items-center justify-center">

@@ -29,7 +29,7 @@ const allChapter = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {chapter.map((item:any)=>(
+                {chapter?.map((item:any)=>(
                     <div 
                         key={item._id}
                         className="bg-white dark:bg-slate-900/60 p-6 rounded-3xl border border-card-border hover:shadow-lg transition-all duration-350 flex flex-col justify-between"
@@ -79,4 +79,4 @@ const allChapter = () => {
   )
 }
 
-export default allChapter
+export default allChapter

@@ -30,7 +30,7 @@
 //     <div>
 //         <h2>Your Chapters</h2>
 //             <ul>
-//                 {chapter.map((item:any)=>(
+//                 {chapter?.map((item:any)=>(
 //                     <li key={item._id} className="mb-4">
 //                         <p>{item.title}</p>
 //                         <p>{item.content}</p>
@@ -192,7 +192,7 @@ const Chapters = () => {
 
             {/* Chapters layout */}
             <div className="space-y-16">
-                {chapter.map((item:any, index: number)=>(
+                {chapter?.map((item:any, index: number)=>(
                     <article 
                         key={item._id} 
                         className="bg-white dark:bg-slate-900/40 p-8 rounded-3xl border border-card-border shadow-sm relative overflow-hidden"
@@ -278,4 +278,4 @@ const Chapters = () => {
   )
 }
 
-export default Chapters
+export default Chapters

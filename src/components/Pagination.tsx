@@ -22,7 +22,7 @@ export default function Pagination({
             </button>
 
             <div className="flex items-center gap-1.5">
-                {Array.from({ length: totalPages }).map((_, index) => {
+                {Array.from({ length: totalPages })?.map((_, index) => {
                     const page = index + 1;
 
                     return (
@@ -50,4 +50,4 @@ export default function Pagination({
             </button>
         </div>
     );
-}
+}

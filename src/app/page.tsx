@@ -63,7 +63,7 @@
 //         </div>
 
 //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {filteredBooks.map((book: any) => (
+//           {filteredBooks?.map((book: any) => (
 //             <div
 //               key={book._id}
 //               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
@@ -206,7 +206,7 @@ export default function Home() {
   }, [query, books]);
 
   return (
-    <div className="flex-1 pb-16 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div className="flex-1 pb-16 bg-linear-to-b from-slate-50/50 via-white to-slate-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Hero Banner Section */}
       <section className="relative overflow-hidden bg-slate-900 text-white py-20 px-6 mb-12">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.25),transparent_45%)]"></div>
@@ -217,14 +217,14 @@ export default function Home() {
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-500/20">
               <Sparkles className="w-3.5 h-3.5" /> Discovery Library
             </span>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none bg-gradient-to-r from-white via-slate-100 to-indigo-100 bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none bg-linear-to-r from-white via-slate-100 to-indigo-100 bg-clip-text text-transparent">
               Discover Your Next Great Adventure
             </h1>
             <p className="text-slate-400 mt-4 text-base sm:text-lg max-w-xl font-medium">
               Explore user-published novels, interactive stories, and creative documents. Start reading or publish your own works today.
             </p>
           </div>
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <Link 
               href="/dashboard/create-book"
               onClick={(e) => {
@@ -233,7 +233,7 @@ export default function Home() {
                   alert("Please login first");
                 }
               }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-200 transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-linear-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-200 transform hover:-translate-y-0.5"
             >
               <BookOpen className="w-5 h-5" />
               <span>Create Your own book</span>
@@ -260,7 +260,7 @@ export default function Home() {
         {/* Filter Toolbar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-card-border pb-6">
           <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-2xl border border-card-border max-w-fit">
-            {SORT_OPTIONS.map((opt) => (
+            {SORT_OPTIONS?.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => handleSortChange(opt.value)}
@@ -280,10 +280,10 @@ export default function Home() {
             <select
               value={category}
               onChange={(e) => handleCategoryChange(e.target.value)}
-              className="px-4 py-2 text-xs font-bold border border-card-border bg-white dark:bg-slate-900 text-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-xl transition-all duration-200 cursor-pointer min-w-[160px]"
+              className="px-4 py-2 text-xs font-bold border border-card-border bg-white dark:bg-slate-900 text-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-xl transition-all duration-200 cursor-pointer min-w-40"
             >
               <option value="All">All Categories</option>
-              {categories.map((cat) => (
+              {categories?.map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
@@ -294,13 +294,13 @@ export default function Home() {
 
         {/* Book Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredBooks.map((book: any) => (
+          {filteredBooks?.map((book: any) => (
             <div
               key={book._id}
               className="group bg-white dark:bg-slate-900/60 rounded-3xl border border-card-border overflow-hidden hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative"
             >
               {/* Cover Image Container */}
-              <div className="aspect-[4/3] w-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 border-b border-card-border">
+              <div className="aspect-4/3 w-full relative overflow-hidden bg-slate-100 dark:bg-slate-800 border-b border-card-border">
                 {book.coverImage ? (
                   <img
                     src={book.coverImage}
@@ -308,7 +308,7 @@ export default function Home() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-slate-200 to-indigo-100/55 dark:from-slate-800 dark:to-slate-800 text-muted gap-2">
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-linear-to-tr from-slate-200 to-indigo-100/55 dark:from-slate-800 dark:to-slate-800 text-muted gap-2">
                     <BookOpen className="w-8 h-8 opacity-40 text-indigo-500" />
                     <span className="text-xs font-semibold opacity-60">No Cover Available</span>
                   </div>
